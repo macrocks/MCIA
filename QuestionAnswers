@@ -1,0 +1,134 @@
+
+
+#Question 1 - 
+how do you trace requests which are coming from external party to experience and then pased to process api. without much changes on mule api's or external vendor api.
+
+Answer - 
+You want to trace the messages flowing through your Mule 4 application using a single unique Id. In many cases, you intend to trace the messages across Multiple applications 
+which can be traced in application logs using an unique Id. How to achieve this?
+
+By design, Correlation Ids cannot be changed within a flow in Mule 4 applications and can be set only at source. This ID is part of the Event Context and is generated 
+as soon as the message is received by the application. When a HTTP Request is received, the request is inspected for "X-Correlation-Id" header.
+a. If "X-Correlation-Id" header is present, HTTP connector uses this as the Correlation Id.  
+b. If "X-Correlation-Id" header is NOT present, a Correlation Id is randomly generated.
+Option a will work in this given scenario where Third pary has to generate and pass correlation Id to Mule experience api in HTTP header field as X-Correlation-Id
+
+#Question 2 -
+Consider we have two batch jobs and are processsing records, how many threads will be used batch job process and how records will be processed in batch job instance and within two batch jobs?
+
+Answer - 
+ref Link https://docs.mulesoft.com/mule-runtime/4.3/batch-processing-concept
+Batch job uses several thread as per Mule autotuning capability it allocate thread to process those records. Also keep this in mind,
+a batch job instance does not wait for all its queued records to finish processing in one batch step before pushing any of them to the next batch step.
+that means batch job process records parallely, and assing several threads as per auto tune capability and process them in parallel within and in between two batch steps.
+
+#Question 3 -
+We need a sync fuctionality between salesforce and backend system. Sync fucntionality is achieved using watermark on account modified field. 
+what stratergy will be used to store watermark? vm, anypoint mq, jms, or database, cache scope, redis cache or active mq
+
+Answer - Persistent object store should be used to hold watermark so in case even application is restarted watermark will not be lost and sync functionality will resumne.
+
+#Question 4 - 
+Mule flow is writing data to two difference database in a single transaction, proposed new solution is to split this single transaction into two non-XA transaction,
+what will be impacted due to this solution? Response time, consistency, performance, availability, throughput
+Anwer - Consistency as both transactions are non-XA transaction due to which any db write failure will not impact other transaction write operation. 
+
+#Question 5 -
+An API needs to be accessed by client or testing team, API is enforced with ClientId enforcement policy. what should client or testing team should do to access this api
+a.get clientid/secret from developer
+b.get api owner access on api
+c. request access to api instance and obtain client id/secret from exchange api portal
+Answer - option C where any user/client can look into portal for api details and raise a request to get client id/secret to access that api.
+
+#Question 6 -
+Mule application A and B are using persistent object store for cache purpose, while A application is deployed to customer hosted runtime and B application is deployed to cloudhub.
+Persistent object store is used from anypoint object store, how does application A and B will access data from Anypoint Object store?
+a. both implement rest api to access data
+b. both use object store connector to access data from anypoint object store
+c. A uses rest api to access data while B application uses object store component
+d. vice versa of option c
+
+Answer - Option c As A application is deployed on customer hosted runtime so to access anypoint object store it will need rest api to access data while B application already deployed on
+cloudhub so it can easily use object store connector to access this data.
+
+#Question 7 -
+How does JMS Connector interact with JMS broker over network 
+
+Answer - JMS connector does support publish and consumer messages over network with JMS broker.
+ref-  https://docs.mulesoft.com/jms-connector/1.6/
+
+#Question 8 -
+What type of data exchage happens when SOAP protocol is used to define API for a given communication
+Answer - WSDL is used to define SOAP protocol communication while Rest API uses xml,json,text,html over HTTP protocol
+
+#Question 9 -
+For a given scenario where mule application reads rows from a given csv file and writed entry into JMS queue in the same order as it is in csv file,
+in case any row processing fails then log entry will happen but other rows processing should continue. What stratergy wil be used as a flow scope
+a. vm connector with first successful
+b. async scope with error propogate
+c. scatter gateher with on error continue
+d. for each scope with on error continue scope
+Answer - option d as we need to process rows in a order to be same as original sequence and should continue in case of any row processing failure.
+
+#Question 10 -
+What are API pre-requisite steps before api implementation come into picture to allow API management and governance by applying policy
+Answer -  An API must be defined by RAML and needs to be published to exchange to manage and put goverance by applying policies on it
+
+#Question 11 -
+A given scenarion, multiple mule applications will be deployed to customer hosted cloud runtime where those are accessed over HTTPS n same port. Given SSL certificates are often rotated
+what is a best possible solution to meet given criteria?
+Answer - Put a Mule domain project with HTTPS configuration and keep SSL certification on server which are referred by Mule domain project(ssl certificate outside of applciation so it can be changed any time)
+.Configure all other mule applications to use mule domain https configuration(so same port will be achieved)
+
+#Question 12 -
+What is a benefit of reconnection configuration for a given database connector?
+Answer - it shows application not to be restarted or re-deployed even downstream database is down within reconnection configuration. 
+(never put reconnection stratergy as reconnect forever as this could lead to more issues)
+
+#Question 13 -
+Who is responsible to send analytics data to a anypoint platform which is on private cloud edition?
+a. mule runtime
+b.api manager
+c.exchange 
+d. anypoint runtime manager
+Answer - option D - ref link - https://docs.mulesoft.com/runtime-manager/
+
+#Question 14 -
+CIDR block calculation- consider a scenario where we have 50 applications which are deployed with 2 clouhub worker and we have 3(dev,sit,uat) env per AWS AZ(2 AZ are allocated ) in a non-prod vpc,
+calculate IP range  which wil be needed for this non-prod vpc
+Answer - Mule applications are deployed in CloudHub workers and each worker is assigned with a dedicated IP .
+Each application has 2 cloudhub worker which impact IP allocation as each cloudhub worker wil have seperate IP. 
+so 1 application = 2 IP  --> 50 *2 = 100 /AZ1  = 200/Non-prod VPC  = 200*3(env) -> 600 IP address will needed in this Non-prod vpc + Additional IP for zero downtime deployment(50%) =300
+Total 900 IP address needed.
+which means 0.0.0.0/23(1024 IPS) CIDR cacluation will be needed here.  Keep below table in mind
+	              Env Production VPC 	Non-production VPC
+Dev		                              50
+Staging		                          50
+Performance		                      50 * 2 = 100
+Production	     50 * 2 = 100	
+Total 	                  100	        200
+Additional IP for zero 
+downtime deployment(50%)	50	       100
+Total IPS               	150	        300
+
+
+
+
+#Question 15 -
+What are details anyoint platform user can find out if he has access to see asset in exchange and any limitiation
+Answer - Type of asset, does it have a public portal associated with it, published when, orginazation to which it belongs too. keep in my mind this is aanypoint platform user
+if annoymous user has access to public port then he can see assets endpoitns, samples and download it as raml,project,
+he can see only assets wich belongs to same business group under which he is assigned.
+
+#Question 16 -
+A give a company restrict login to anypoint platform using its organization's credentials, which feature will allow for login credentials ??
+a. Oauth authentication
+b. Basic HTTp login
+c. federated client management
+d. federated Idendity mandagement
+e.Enterprise secutiry module
+Answer - Option D Ref - https://docs.mulesoft.com/access-management/external-identity
+
+#Question 17 -
+
+
