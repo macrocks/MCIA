@@ -102,13 +102,13 @@ so 1 application = 2 IP  --> 50 *2 = 100 /AZ1  = 200/Non-prod VPC  = 200*3(env) 
 Total 900 IP address needed.
 which means 0.0.0.0/23(1024 IPS) CIDR cacluation will be needed here.  Keep below table in mind
 	              Env Production VPC 	Non-production VPC
-Dev		                              50
-Staging		                          50
-Performance		                      50 * 2 = 100
-Production	     50 * 2 = 100	
-Total 	                  100	        200
+Dev		                              	 50
+Staging		                         	 50
+Performance		                      	 50 * 2 = 100
+Production	    	 50 * 2 = 100	
+Total 	                  	100	         200
 Additional IP for zero 
-downtime deployment(50%)	50	       100
+downtime deployment(50%)	50	        100
 Total IPS               	150	        300
 
 
@@ -130,5 +130,19 @@ e.Enterprise secutiry module
 Answer - Option D Ref - https://docs.mulesoft.com/access-management/external-identity
 
 #Question 17 -
+Given a client needs to deploy mule applications on cloudhub with custom SSL certtificate accessible under same domain name which is signed by reputable CA, which load balancer should be used and what configuration needs to be considered?
+Answer - ref- https://docs.mulesoft.com/runtime-manager/dedicated-load-balancer-tutorial
+Dedicated load balancer allow custom certificate to be loaded Also Configure proxy rules that map your applications to custom domains. This enables you to host your applications under a single domain
+
+Question 18 -
+What are things needs to be stated in a Integration design specification when mule application will be integrating to external third party along with functional requirement,integration specification?
+a. credentials to access third party endpoint
+b. SLA and non -functional requirements
+c. backend system desgins and solution architecture
+d.Mule aplication flow and error scenario flows
+Answer - option b which talks about SLA and Non-functional requirement
+
+#Question 19 -
+
 
 
