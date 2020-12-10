@@ -143,6 +143,75 @@ d.Mule aplication flow and error scenario flows
 Answer - option b which talks about SLA and Non-functional requirement
 
 #Question 19 -
+An organization has multipe api's which connect to same backend system and few api's are deployed on cloudhub and few of them on customer hosted mule runtime env.
+how can we avoid creating duplicate properties for those backend systems which are used by all those mule apis
+a. creat mule domain project and keep properties in this mule domain project and other apis will use mule domain
+b. store properties in each mule application
+c.keep properties in shared location and all mule api's will access those properties while startup 
+d. create an application which given properties from a secure location ,invoke this api during startup 
+answer - option D ???  need to search more on this if it is possible
 
+#Question 20 -
+Given microservices design - one api pushes message for order which will be consumes by only fullfill service, fullfill service will complete task and send a message which
+can consumed by multiple application n one of them is order api
+which design architecture will fit here
+Answer - Order service will push message on jms queue which will be consumed by fullfill service only (point to point messaging)
+while fullfill service will send message on jms topic which will be subscribed by any service along with order service (broadcasting messaging)
+
+#Question 21 -
+What operation can be performed through a JMX agent enable in a Mule application
+Answer - https://docs.mulesoft.com/tcat-server/7.1/jmx-agent-monitoring
+https://docs.mulesoft.com/mule-runtime/3.9/jmx-management#log4j-agent
+can set log4j configuration to be used by mule
+
+#Question 22 -
+Mule applications need to be deployed to cloudHub so they can access on premises database systems. These systems store sensitive and hence tightly protected data, so are not accessible over the internet.
+What network architecture supports this requirement
+Answer - https://docs.mulesoft.com/runtime-manager/vpc-connectivity-methods-concept
+connect anypoint vpc with on premise datacentre using ipsec tunnel or aws direct connect , also vpc peering could help to achieve this.
+
+#Question 23 -
+What comparison is true about a cloud hub dedicated load balancer (DLB) vs the cloudhub shared load balancer (SLB)?
+Answer  ONly DLB allow custom ssl certiication
+https://docs.mulesoft.com/runtime-manager/cloudhub-dedicated-load-balancer
+https://www.linkedin.com/pulse/shared-vs-dedicated-load-balancer-mulesoft-cloudhub-ravi-dhyani/?articleId=6616710290769829888 
+
+#Question 24 -An XA transaction is being configured that involves a JMS connector listening for incoming JMS messages.
+What is the meaning of the timeout attribute of the XA transaction, and what happens after the timeout expires
+Answer - https://docs.mulesoft.com/mule-runtime/4.3/xa-transactions
+Time allows to wait for transaction to be progressed without being explicitly ended, after timout transaction is rolled back
+
+#Question 25 -An organization is creating a set of new services that are critical for their business. The project team prefers REST for all services but is willing to use SOAP with common WS-* standards if a particular service requires it.
+What requirement would drive the team to use SOAP/WS-* for a particular service?
+Answer - soap protocol does support auto acknowlegement and retry operation feature 
+http://xml.coverpages.org/BEA-WS-Acknowledgement-09.html
+
+#Question 26 -
+An integration mule application is being designed to synchronize customer data between two systems. One system is an IBM mainframe and the other system is a salesforce marketing cloud (CRM) instance. Both systems have been deployed in their typical configuration, and are to be invoked using the native protocols provided by salesforce and IBM.
+What interface technologies are the most straightforward and appropriate to use in the mule application to interact with these systems, assuming that anypoint connectors exist that implement these interface technologies?
+Answer - https://www.mulesoft.com/exchange/com.mulesoft.connectors/mule-sfdc-marketing-cloud-connector/
+https://www.mulesoft.com/exchange/com.mulesoft.connectors/mule-ibm-ctg-connector/
+
+IBM CICS and CRM SOAP
+
+#Question 27 -
+Anypoint runtime manager alerts can be used for which conditioned when mule runtimes are customer hosted and managed by anypoint control pane
+Anwer -
+https://docs.mulesoft.com/runtime-manager/alerts-on-runtime-manager#alert-conditions  - check consditions for lcoal server
+When high memory consumption occurs this can be notified through alerts
+
+#Question 28 -
+What requires a configuration of both a key store and a trust store for an HTTP listener
+Answer - when TLS needs support for two way ssl
+Adding both a keystore and a truststore to the configuration implements two-way TLS authentication also known as mutual authentication
+ref lnk- https://docs.mulesoft.com/mule-runtime/4.3/tls-configuration
+
+#Question 30 -
+A set of integration mule applications, some of which expose APIs, are being created to enable a new business process. Various stakeholders may be impacted by this.  These stakeholders are a combination of semi-technical users (who understand basic integration terminology and concepts such as JSON and XML) and technically skilled potential consumers of the Mule applications and APIs.
+What is an effective way for the project team responsible for the mule applications and APIs being built to communicate with these stakeholders using Anypoint platform and its supplied toolset?
+Answer - ?? anypoint design center to desing raml and share for collaboration and feedback
+
+
+#Question 31-
 
 
