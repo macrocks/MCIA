@@ -292,5 +292,102 @@ Answer -Compile, package, unit test, deploy, integration test
 http://workshop.tools.mulesoft.com/modules/module7_lab4#step-2-configure-the-mule-maven­plugin
 
 #Question 45 -
+An organization currently uses a multi-node mule runtime deployment model within their datacenter, so each Mule runtime hosts several mule applications. The organization is planning to transition to a deployment model based on Docker containers in a Kubemeter cluster. The organization has already created a standard Docker image containinig a Mule runtime and all required dependencies(including a JVM ) but excluding the mule application itself.
+What is an expected outcome of this transition to container-based Mule application deployments?
+Answer - Guaranteed consistency of execution environments across all deployments of a Mule Application 
+Ref- https://www.mulesoft.com/resources/api/kubernetes-container-orchestration
+
+#Question 46 -
+An integration mule application is being designed to process orders by submitting them to a backend system for offline processing. Each order will be received by the mule application through an HTTPS POST and must be acknowledged immediately.
+Once acknowledged, the order will be submitted to a backend system. Orders that cannot be successfully submitted due to rejections from the backend system will need to be processed manually (outside of the backend system)
+The mule application will be deployed to a customer-hosted runtime and is able to use an existing ActiveMQ broker if needed.
+The backend system has to track record of unreliability both due to minor network connectivity issues and longer outages.
+What idiomatic (used for their intended purposes) combination of mule application components and ActiveMQ queues are required to ensure automatic submission of orders to the backend system, while minimizing manual order processing?
+
+Answer - as backend system has unrliability records we should have activemq with reconnection stratergy and redelivery will help to process even backend system is down,
+use until succeful for better delivery and process of message
+
+#Question 47-
+What metrics about API invocations are available for visualization in custom charts using Anypoint Analytics 
+Answer - request size,no,response time  and size
+REf- https://docs.mulesoft.com/monitoring/api-analytics-dashboard
+
+#Question 48 -
+A new mule application under development must implement extensive data transformation logic. Some of the data transformation functionality is already available as external transformation services that are mature and widely used across the organization, the rest is highly specific to the new mule application.
+The organization follows a rigorous testing approach, where every service and application must be extensively acceptance tested before it is allowed to go into production.
+What is the best way to implement the data transformation logic for this new mule application while minimizing the overall testing effort?
+Answer - imlement transaformation logic using dataweave in new api and invoke existing service whenevr possible.
+
+#Question 49-
+An organization is designing an integration solution to replicate financial transaction data from a legacy system into a data warehouse (DWH)
+The DWH must contain a daily snapshot of financial transactions, to be delivered as a CSV file. Daily transaction volume events tens of millions of records, with significant spikes in volume during popular shopping periods.
+What is the most appropriate integraion style for an integraion solution that meets the organization's current requirements?
+Answer - Microservice architecture
+
+#Question 50 -
+An organization uses a 2 node Mule runtime cluster to host one stateless API implementation. The api is accessed over HTTPS through a load balancer that uses round-robin for load distribution.
+Two additional nodes have been added to the cluster and the load balancer has been configured to recognize the new nodes with no other change to the load balancer.
+What average performance change is guaranteed to happen, assuming all cluster nodes are fully operational?
+Answer - 50%reduction in no of request received by each node. this is due to round robin logic at load balancer which will send request to each node that means 
+first two nodes will have 50% less reqeust to be processed.
+
+#Question 51- 
+A global organization operates datacenters in many countries. There are private network links between these datacenters because all business data (but NOT metadata) must be exchanged over these private network connections.
+The organization does not currently use AWS in any way.
+The strategic decision has just been made to rigorously minimize It operations effort and investment going forward.
+What combination of deployment options of the Anypoint Platform control plane and runtime plane(s) best senes this organization at the start of this strategic journey?
+Answer - 
+Mulesoft anypoint platform control plane(as this is metadata) while customer hosted runtime plance in multiple aws region data centre(this is actual business data)
+
+#Question 52 -
+When using Anypoint platform across various lines of business with their own Anypoint Platform business groups,
+what configuration of Anypoint Platform is always performed at the organization level as opposed to at the business group level?
+Answer -Identity management setup
+ref-https://docs.mulesoft.com/access-management/multi-factor-authentication
+
+#Question 53-
+A mule application is being designed to do the following: 
+Step 1: Read a SalesOrder message from a JMS queue, where each SalesOrder consists of a header and a list of SalesOrderLineItems. 
+Step 2: Insert the SalesOrder header and each SalesOrderLineItem into different tables in and RDBMS.
+Step 3: Insert the SalesOrder header and the sum or prices of all SalesOrderLineItems into a table in different RDBMS.
+No SalesOrder message can be lost and the consistency of all SalesOrder-related information in both RDBMs must be ensured at all times
+What design choice (including choice of transactions) and order of steps addresses these requirements
+Answer - read jms message ina XA transaction and do db insert transaction in same XA and do no acknolwdge jms message
+
+#Question 54 -
+Mule application A receives a request Anypoint MQ message REQU with a payload containing a variable length list of objects. Application A uses the FOR Each scope to split the list into individual objects and sends each object as a message to an Anypoint MQ queue.
+Service S listens on that queue, processes each message independently of all the other messages, and sends a response message to a response queue.
+Application A listens on that response queue and must in turn create and publish a response Anypoint MQ message RESP with a payload containing the list of responses sent by service S in the same order as the request objects originally sent in REQU.
+Assume successful response messages are returned by services S for all request messages.
+What is required so that application A can ensure that the length and order of the list of objects in RESP and REQU match, while at the same time maximizing message throughput?
+Answer -scatter gather or for each with persistent object stre???
+
+#Question 55 -
+A mule application has a http listener that accepts HTTP DELETE requests. The mule application is deployed to three CloudHub workers under the control of the CloudHub shared load balancer.
+A web client makes a sequence of requests to the Mule application’s public URL.
+How is the sequence of web client requests distributed among the HTTP listeners running in the three CloudHub Workers?
+Answer -•	Each request is routed to ONE ARBITARY CloudHub worker out of all the three CloudHub Workers
+ref https://docs.mulesoft.com/runtime-manager/cloudhub-fabric
+
+#Question 56 -
+An organization is designing a mule application to receive data from one external business partner. The two companies currently have no shared IT infrastructure and do not want to establish one. Instead, all communication should be over the public internet (With no VPN).
+What any point connector can be used in the organizations mule application to securely read data from this external business provider
+Answer - SFTP ,HTTPS ,WSDL connector
+
+#Question 57-
+A team would like to create a project skeleton that developers can use as a starting point when creating API implementations with Anypoint studio. This skeleton should help drive consistent use of best practices within the team.
+What type of Anypoint Exchange artifact(s) should be added to Anypoint Exchange to publish the project skeleton?
+Answer -A Mule application template with the key components and minimal integration logic
+Ref https://docs.mulesoft.com/design-center/fd-publish-app-as-template
+
+#Question 58
+A Mule 4 application has a parent flow that breaks up a JSON array payload into 200 separate items, then sends each item one at a time inside an Async scope to a VM queue.
+A second flow to process orders has a VM Listener on the same VM queue. The rest of this flow process each received item by writing the item to a database.
+The Mule application is deployed to four CloudHub workers with persistent queues enabled.
+What message processing guarantees are provided by the VM queue and the CloudHub workers, and how are VM message routed among the CloudHub workers for each invocation of the parent flow under normal operating conditions where all the CloudHub workers remain online
+Answer -
+EACH item VM message is processed AT LEAST ONCE by ONE ARBITRARY CloudHub worker Each of the four CloudHub workers can be expected to process some item VM messages
+
+#Question 59-
 
 
