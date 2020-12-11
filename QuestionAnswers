@@ -213,5 +213,84 @@ Answer - ?? anypoint design center to desing raml and share for collaboration an
 
 
 #Question 31-
+A Mule application is deployed to a cluster of two customer-hosted Mule runtimes. The Mule application has a flow that polls a database and another flow with an HTTP Listener.
+HTTP clients send HTTP requests directly to individual cluster nodes.
+What happens to database polling and HTTP request handling in the time after the primary (master) node of the cluster has failed, but before that node is restarted?
+Answer - database polling will continue while http request will handle be handle on second node if second node is called directly???look into cluster documentation
+
+#Question 32 -
+Additional nodes are being added to an existing customer-hosted Mule runtime cluster to improve performance. Mule application deployed to this cluster are invoked by API client through a load balancer.
+What is also required to carry out those change?
+Answer - external aggregator or monitoring tool needs to be configured to recognise this new node
+
+#Qustion 33 -
+A Mule application is deployed to a multi-node Mule runtime cluster. The Mule application use the competing consumer pattern among its cluster replicas to receive JMS messages from a JMS queue. To Process each received JMS message, the following steps are performed 4in a flow: 
+Step1: The JMS correlation ID header is read from the received JMS message. 
+Step2: The Mule application invokes an idempotent SOAP webservice over HTTPS, Passing the JMS Correlation ID as one parameter in the SOAP request. 
+Step 3: The response from the SOAP webservice also return the same JMS CORRELATION id. 
+Step4: The JMS correlation ID received from the SOAP webservice is validated to be identical to the JMS Correlation ID in Step1. 
+Step5: The mule application creates a response JMS message setting the JMS Correlation ID message header to the validated JMS correlation ID and publishes that message to a response JMS queue.
+
+Anwser - Shoul it be store in variable or persistent object or non-persisten object store ? think about multi node cluster and jms part.
+
+#Question 34 -
+Anypoint Exchange is required to maintain the source code of some of the assets committed to it, such as connector, Templates and API specifications.
+What is the best way to use an organization’s source-code management (SCM) system in this context?
+Answer - should exchange as primary scm along with other scm for parallel branch merge and versionining
+
+#Question 35 -
+What aspects to RBAC must ALWAYS be controlled from the Anypoint Platform control plane and cannot be controlled via the external identity provider
+Answer - RBAC cannot assing permission to role on anypoint platform,
+it can assign role ,assing it business group and remove user access
+
+#Question 36 -
+One of the backend systems invoked by an API implementation enforces rate limits on the number of requests a particular client can make. Both The backend system and the API implementation are deployed to several non-production environments in addition to production.
+Rate limiting of the backend system applies to all non-production environments. The production environments. The production environment, however, does Not have any rate limiting.
+What is the most effective approach to conduct performance test of the AI implementation in a staging (non-production) environment?
+Answer - create a mocking service with production performance characteristic and then configure mule api to connect with mocking service for performance test
+
+#Question 37 -
+A retailer is designing a data exchange interface to be used by list suppliers. The interface must support secure communication over the public internet. The interface must also work with a wide variety of programming languages and IT system used by suppliers.
+What are the suitable interface technologies for this data exchange that secure, cross-platform and internet friendly, assuming that Anypoint Connectors exist for interface technologies
+Answer -
+edifact ,xml over sftp and ml/json over https
+
+#Question 38 -
+Anypoint connector which support transactions -
+Answer -  JMS Database vm  ref link- https://docs.mulesoft.com/mule-runtime/4.3/xa-transactions
+
+#Question 39 -
+A business process involved the receipt of a file from an external vendor over SFTP. The file needs to be parsed and its content processed, validated and ultimately persisted to a database. The delivery mechanism is expected to change in the future as more vendors send similar files using other mechanisms such as file transfer or HTTP POST.
+What is most effective way to design for these requirements in order to minimize the impact of future change
+Answer - create an api that recieve files which then invoke process api and have system api as per need
+
+#Question 40 -
+An API client is implemented as a Mule application that includes an HTTP Request operation using a default configuration. 
+The HTTP Request operation invokes an external API that follows standard HTTP status code conversion, which cause the HTTP Request operation to return a 4xx status code.
+Answer - External API reported an http 4xx code on a request which is received from outbound service
+
+#Question 41 -
+What is the recommended practice when designing an integration mule4 application that reads a large xml payload as a stream?
+Answer - payload should be dealt as xml stream only and no conversion to java needed
+
+#Question 42 -
+An integration mule application is deployed to a customer hosted multi node mule 4 runtime cluster. The mule application uses a listener operation of a JMS connector to receive incoming messages from a JMS queue.
+How are the messages consumed by the mule application
+Answer - https://docs.mulesoft.com/jms-connector/1.7/jms-performance#optimize-your-configuration-for-clusters
+depending on listener configuration , messages will be consumed by primary or any other node
+
+#Question 43 -
+A business process involves two APIs that interact with each other asynchronously over HTTP. Each API is implemented as a Mule application. API 1 receives the initial HTTP request and invokes API 2 (in a fire and forget fashion) While API 2, upon Completion of the processing, calls back into API 1 to notify about completion of the asynchronous process.
+Each API is deployed to multiple redundant Mule runtime and a separate load balancer, and is deployed to a separate network zone.
+In the network architecture, how must the firewall rules be configured to enable the above interaction between API 1 and API 2.
+Answer - To enable communication from each API’s Mule runtimes and network zone to the load balancer of the other API
+Ref link - https://docs.mulesoft.com/runtime-manager/virtual-private-cloud#firewall-rules
+
+#Question 44- 
+What aspects of a CI/CD pipeline for Mule applications can be automated using Mulesoft provided Maven plugin?
+Answer -Compile, package, unit test, deploy, integration test
+http://workshop.tools.mulesoft.com/modules/module7_lab4#step-2-configure-the-mule-maven­plugin
+
+#Question 45 -
 
 
