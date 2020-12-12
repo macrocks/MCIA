@@ -456,4 +456,9 @@ Answer - until n unless there is no change on process api raml defination, api c
 What aspect of logging is only possible for Mule applications deployed to customer-hosted Mule runtimes, but NOT for Mule applications deployed to CloudHub
 Answer - To directly reference one shared and customized log4j2.xml file from multiple Mule applications
 
-#Question 68 -
+#Question 68
+
+#Question 70 -
+
+
+
