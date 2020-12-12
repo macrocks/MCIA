@@ -294,8 +294,8 @@ Ref link - https://docs.mulesoft.com/runtime-manager/virtual-private-cloud#firew
 
 #Question 44- 
 What aspects of a CI/CD pipeline for Mule applications can be automated using Mulesoft provided Maven plugin?
-Answer -Compile, package, unit test, deploy, integration test
-http://workshop.tools.mulesoft.com/modules/module7_lab4#step-2-configure-the-mule-maven­plugin
+Answer -Compile, package, unit test, validate unit test coverage, deploy
+http://workshop.tools.mulesoft.com/modules/module7_lab4#step-2-configure-the-mule-maven­plugin  https://docs.mulesoft.com/munit/2.3/coverage-maven-concept
 
 #Question 45 -
 An organization currently uses a multi-node mule runtime deployment model within their datacenter, so each Mule runtime hosts several mule applications. The organization is planning to transition to a deployment model based on Docker containers in a Kubemeter cluster. The organization has already created a standard Docker image containinig a Mule runtime and all required dependencies(including a JVM ) but excluding the mule application itself.
@@ -329,7 +329,7 @@ Answer - imlement transaformation logic using dataweave in new api and invoke ex
 An organization is designing an integration solution to replicate financial transaction data from a legacy system into a data warehouse (DWH)
 The DWH must contain a daily snapshot of financial transactions, to be delivered as a CSV file. Daily transaction volume events tens of millions of records, with significant spikes in volume during popular shopping periods.
 What is the most appropriate integraion style for an integraion solution that meets the organization's current requirements?
-Answer - Microservice architecture
+Answer - Batch-triggered ETL -as ddaily snapshot with tens of millions of records to be processed
 
 #Question 50 -
 An organization uses a 2 node Mule runtime cluster to host one stateless API implementation. The api is accessed over HTTPS through a load balancer that uses round-robin for load distribution.
@@ -344,7 +344,7 @@ The organization does not currently use AWS in any way.
 The strategic decision has just been made to rigorously minimize It operations effort and investment going forward.
 What combination of deployment options of the Anypoint Platform control plane and runtime plane(s) best senes this organization at the start of this strategic journey?
 Answer - 
-Mulesoft anypoint platform control plane(as this is metadata) while customer hosted runtime plance in multiple aws region data centre(this is actual business data)
+Mulesoft anypoint platform control plane(as this is metadata) while customer hosted runtime plance in datacenters(this is actual business data)
 
 #Question 52 -
 When using Anypoint platform across various lines of business with their own Anypoint Platform business groups,
