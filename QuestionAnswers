@@ -253,7 +253,9 @@ Answer - create a mocking service with production performance characteristic and
 A retailer is designing a data exchange interface to be used by list suppliers. The interface must support secure communication over the public internet. The interface must also work with a wide variety of programming languages and IT system used by suppliers.
 What are the suitable interface technologies for this data exchange that secure, cross-platform and internet friendly, assuming that Anypoint Connectors exist for interface technologies
 Answer -
-edifact ,xml over sftp and ml/json over https
+edifact ,xml over sftp and ml/json over https 
+or 
+CSV over FTP YAML over TLS JSON over HTTPS
 
 #Question 38 -
 Anypoint connector which support transactions -
@@ -295,6 +297,7 @@ http://workshop.tools.mulesoft.com/modules/module7_lab4#step-2-configure-the-mul
 An organization currently uses a multi-node mule runtime deployment model within their datacenter, so each Mule runtime hosts several mule applications. The organization is planning to transition to a deployment model based on Docker containers in a Kubemeter cluster. The organization has already created a standard Docker image containinig a Mule runtime and all required dependencies(including a JVM ) but excluding the mule application itself.
 What is an expected outcome of this transition to container-based Mule application deployments?
 Answer - Guaranteed consistency of execution environments across all deployments of a Mule Application 
+or A.Required redesign of Mule applications to follow microservice architecture principles
 Ref- https://www.mulesoft.com/resources/api/kubernetes-container-orchestration
 
 #Question 46 -
@@ -389,5 +392,68 @@ Answer -
 EACH item VM message is processed AT LEAST ONCE by ONE ARBITRARY CloudHub worker Each of the four CloudHub workers can be expected to process some item VM messages
 
 #Question 59-
+What API policy would LEAST likely be applied to a Process API?
+Custom circuit breakercorrect
+Client ID enforcement
+Rate limiting
+JSON threat protection
+Answer A
+Explanation:
+Reference: https://docs.mulesoft.com/api-manager/2.x/policy-mule3-provided-policies
 
+#Question 60 -
+What is a key performance indicator (KPI) that measures the success of a typical C4E that is immediately apparent in responses from the Anypoint Platform APIs?
+A.The number of production outage incidents reported in the last 24 hourscorrect
+B.The number of API implementations that have a publicly accessible HTTP endpoint and are being managed by Anypoint Platformcorrect
+C.The fraction of API implementations deployed manually relative to those deployed using a CI/CD tool
+D.The number of API specifications in RAML or OAS format published to Anypoint Exchangecorrect
+QAnswer A B D
+Explanation:
+Reference: https://help.mulesoft.com/s/question/0D52T00004mXSTUSA4/how-should-a-company­measure-c4e-success
 
+#Question 61 -
+ An organization is implementing a Quote of the Day API that caches today's quote.
+What scenario can use the CloudHub Object Store via the Object Store connector to persist the cache's state
+Answer - When there is one deployment of the API implementation to CloudHub and another deployment to a customer-hosted Mule runtime that must share the cache state
+
+#Question 62 -
+What condition requires using a CloudHub Dedicated Load Balancer
+Answer - When custom DNS names are required for API implementations deployed to customer-hosted Mule runtimes
+Ref -https://docs.mulesoft.com/runtime-manager/cloudhub-dedicated-load-balancer
+
+#Question 63 -
+What do the API invocation metrics provided by Anypoint Platform provide?
+A.ROI metrics from APIs that can be directly shared with business userscorrect
+B.Measurements of the effectiveness of the application network based on the level of reuse
+C.Data on past API invocations to help identify anomalies and usage patterns across various APIscorrect
+D.Proactive identification of likely future policy violations that exceed a given threat thresholdcorrect
+Answer A C D
+Explanation:
+Reference: https://usermanual.wiki/Document/APAAppNetstudentManual02may2018.991784750.pdf
+
+#Question 64
+ What is true about the technology architecture of Anypoint VPCs?
+A.The private IP address range of an Anypoint VPC is automatically chosen by CloudHub.correct
+B.Traffic between Mule applications deployed to an Anypoint VPC and on-premises systems can stay within a private network.correct
+C.Each CloudHub environment requires a separate Anypoint VP
+D.VPC peering can be used to link the underlying AWS VPC to an on-premises (non AWS) private network.correct
+Answer - A B D
+Explanation:
+Reference: https://docs.mulesoft.com/runtime-manager/vpc-connectivity-methods-concept
+
+#Question 65-
+An API implementation is deployed on a single worker on CloudHub and invoked by external API clients (outside of CloudHub).
+How can an alert be set up that is guaranteed to trigger AS SOON AS that API implementation stops responding to API invocations?
+Answer -Configure a “worker not responding” alert in Anypoint Runtime Manager
+Ref- https://docs.mulesoft.com/runtime-manager/alerts-on-runtime-manager#alert-conditions
+
+#Qestion 66 -
+The implementation of a Process API must change.
+What is a valid approach that minimizes the impact of this change on API clients
+Answer - until n unless there is no change on process api raml defination, api changes can be implmented.
+
+#Question 67-
+What aspect of logging is only possible for Mule applications deployed to customer-hosted Mule runtimes, but NOT for Mule applications deployed to CloudHub
+Answer - To directly reference one shared and customized log4j2.xml file from multiple Mule applications
+
+#Question 68 -
