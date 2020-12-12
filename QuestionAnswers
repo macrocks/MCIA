@@ -58,8 +58,9 @@ Answer - JMS connector does support publish and consumer messages over network w
 ref-  https://docs.mulesoft.com/jms-connector/1.6/
 
 #Question 8 -
-What type of data exchage happens when SOAP protocol is used to define API for a given communication
-Answer - WSDL is used to define SOAP protocol communication while Rest API uses xml,json,text,html over HTTP protocol
+What type of data exchage happens when protocol is used to define API for a given communication
+Answer - WSDL is used to define SOAP protocol communication while Rest API uses xml,json,text,html over HTTP protocol,
+Message types (XSD): defines the message structure, based on data types or standard XML types ,WSDL defines how a web service behaves, while a XSD defines XML structures
 
 #Question 9 -
 For a given scenario where mule application reads rows from a given csv file and writed entry into JMS queue in the same order as it is in csv file,
@@ -92,6 +93,7 @@ b.api manager
 c.exchange 
 d. anypoint runtime manager
 Answer - option D - ref link - https://docs.mulesoft.com/runtime-manager/
+https://docs.mulesoft.com/runtime-manager/sending-data-from-arm-to-external-analytics-software#prerequisites
 
 #Question 14 -
 CIDR block calculation- consider a scenario where we have 50 applications which are deployed with 2 clouhub worker and we have 3(dev,sit,uat) env per AWS AZ(2 AZ are allocated ) in a non-prod vpc,
@@ -185,6 +187,8 @@ Time allows to wait for transaction to be progressed without being explicitly en
 What requirement would drive the team to use SOAP/WS-* for a particular service?
 Answer - soap protocol does support auto acknowlegement and retry operation feature 
 http://xml.coverpages.org/BEA-WS-Acknowledgement-09.html
+but here specific ws-* services are specified to be used https://docs.mulesoft.com/mule-runtime/3.9/securing-a-soap-api which allows soap serice to validate authentication/valid saml token
+
 
 #Question 26 -
 An integration mule application is being designed to synchronize customer data between two systems. One system is an IBM mainframe and the other system is a salesforce marketing cloud (CRM) instance. Both systems have been deployed in their typical configuration, and are to be invoked using the native protocols provided by salesforce and IBM.
@@ -375,7 +379,7 @@ ref https://docs.mulesoft.com/runtime-manager/cloudhub-fabric
 #Question 56 -
 An organization is designing a mule application to receive data from one external business partner. The two companies currently have no shared IT infrastructure and do not want to establish one. Instead, all communication should be over the public internet (With no VPN).
 What any point connector can be used in the organizations mule application to securely read data from this external business provider
-Answer - SFTP ,HTTPS ,WSDL connector
+Answer - SFTP ,HTTPS ,connector
 
 #Question 57-
 A team would like to create a project skeleton that developers can use as a starting point when creating API implementations with Anypoint studio. This skeleton should help drive consistent use of best practices within the team.
